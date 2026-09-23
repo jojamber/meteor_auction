@@ -1,5 +1,6 @@
 import { Meteor } from "meteor/meteor";
-import { AuctionsCollection } from "../imports/api/AuctionsCollection";
+import { AuctionsCollection } from "/imports/api/AuctionsCollection";
+import { BidsCollection } from "/imports/api/BidsCollection";
 import { check } from "meteor/check";
 
 async function insertAuction({ title, description, imageUrl, startingPrice, currentPrice, endTime }) {
@@ -57,6 +58,11 @@ Meteor.startup(async () => {
   Meteor.publish("auctionDetails", function (auctionId) {
     check(auctionId, String);
     return AuctionsCollection.find({ _id: auctionId });
+  });
+
+  Meteor.publish("auctionBids", function (auctionId) {
+    check(auctionId, String);
+    return BidsCollection.find({ _id: auctionId }, { sort: { createdAt: -1 } });
   });
 });
 

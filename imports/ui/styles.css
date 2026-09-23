@@ -74,6 +74,7 @@ body {
 
 .auction-info {
   display: flex;
+  min-width: 0;
   flex-direction: column;
   gap: var(--spacing-sm);
 }
