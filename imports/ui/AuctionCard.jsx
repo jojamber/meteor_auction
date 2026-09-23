@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaRegHourglass } from "react-icons/fa";
+import { CountdownBadge } from './CountdownBadge';
 
 
 export const AuctionCard = ({ auction }) => {
@@ -10,10 +10,7 @@ export const AuctionCard = ({ auction }) => {
       <h2>{title}</h2>
       <div className="auction-card-meta">
         <span>Current Price: {currentPrice} €</span>
-        <div className="green-batch">
-            <FaRegHourglass />
-            <span>{new Date(endTime).toLocaleDateString()}</span>
-        </div>
+        <CountdownBadge timeLeft={Date.now()} />
       </div>
       <Link to={`/auction/${_id}`} role="button">
         View Auction

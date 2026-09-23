@@ -53,6 +53,28 @@ body {
   justify-content: space-between;
 }
 
+/* ============ Auction Detail ============ */
+
+.auction-detail {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--spacing-sm);
+}
+
+.auction-detail > article {
+  margin-bottom: 0;
+}
+
+.auction-detail-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.auction-detail-left > article {
+  margin-bottom: 0;
+}
+
 .green-batch {
   display: inline-flex;
   align-items: center;

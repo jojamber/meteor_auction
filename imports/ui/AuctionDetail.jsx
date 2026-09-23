@@ -1,6 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { useSubscribe, useTracker } from "meteor/react-meteor-data";
 import { AuctionsCollection } from "/imports/api/AuctionsCollection";
+import { AuctionInfo } from "./AuctionInfo";
+import { AuctionBid } from "./AuctionBid";
+import { AuctionChat } from "./AuctionChat";
 
 export const AuctionDetail = () => {
   const { auctionId } = useParams();
@@ -17,6 +20,12 @@ export const AuctionDetail = () => {
   }
 
   return (
-    <h1>Auction Detail Page for {auctionId}</h1>
+    <div className="auction-detail">
+      <div className="auction-detail-left">
+        <AuctionInfo auction={auction} />
+        <AuctionBid />
+      </div>
+      <AuctionChat />
+    </div>
   );
 }
