@@ -41,7 +41,7 @@ Meteor.startup(async () => {
 
     await insertAuction({
       title: "Mercedes-Benz 280 CE",
-      description: "A classic Mercedes-Benz 280 CE from the 1980s.",
+      description: "A classic Mercedes-Benz 280 CE from the 1980s. Perfect condion and well-maintained. A true collector's item for car enthusiasts. Don't miss the chance to own this iconic vehicle.",
       imageUrl:
         "https://images.unsplash.com/photo-1686141231719-95d01804be4a?q=80&w=1714&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       startingPrice: 20000,
