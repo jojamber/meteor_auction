@@ -46,3 +46,19 @@ body {
   border-radius: var(--radius-sm);
   object-fit: cover;
 }
+
+.auction-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.green-batch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: #fff;
+  background-color: var(--pico-secondary-background);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+}

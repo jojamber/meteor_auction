@@ -1,5 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import { AuctionsCollection } from "../imports/api/AuctionsCollection";
+import { check } from "meteor/check";
 
 async function insertAuction({ title, description, imageUrl, startingPrice, currentPrice, endTime }) {
   await AuctionsCollection.insertAsync({ title, description, imageUrl, startingPrice, currentPrice, endTime });
@@ -51,6 +52,11 @@ Meteor.startup(async () => {
 
   Meteor.publish("auctions", () => {
     return AuctionsCollection.find();
+  });
+
+  Meteor.publish("auctionDetails", function (auctionId) {
+    check(auctionId, String);
+    return AuctionsCollection.find({ _id: auctionId });
   });
 });
 

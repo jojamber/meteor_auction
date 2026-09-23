@@ -1,13 +1,23 @@
 import { Link } from 'react-router-dom';
+import { FaRegHourglass } from "react-icons/fa";
 
 
 export const AuctionCard = ({ auction }) => {
-  const { _id, title, imageUrl } = auction;
+  const { _id, title, imageUrl, currentPrice, endTime } = auction;
   return (
     <article className="auction-card">
-        <img src={imageUrl} alt={title} />
-        <h2>{title}</h2>
-        <Link to={`/auction/${_id}`} role="button">View Auction</Link>
+      <img src={imageUrl} alt={title} />
+      <h2>{title}</h2>
+      <div className="auction-card-meta">
+        <span>Current Price: {currentPrice} €</span>
+        <div className="green-batch">
+            <FaRegHourglass />
+            <span>{new Date(endTime).toLocaleDateString()}</span>
+        </div>
+      </div>
+      <Link to={`/auction/${_id}`} role="button">
+        View Auction
+      </Link>
     </article>
   );
 }
