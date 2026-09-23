@@ -49,7 +49,7 @@ Meteor.startup(async () => {
     });
   }
 
-  Meteor.publish("auctions", function () {
+  Meteor.publish("auctions", () => {
     return AuctionsCollection.find();
   });
 });

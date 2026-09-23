@@ -1,13 +1,17 @@
-import { Counter } from "./Counter.jsx";
-import { Header } from "./Header.jsx";
-import { Info } from "./Info.jsx";
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { AuctionList } from './AuctionList';
+import { AuctionDetail } from './AuctionDetail';
 
 export const App = () => (
-  <div className="page">
-    <Header />
-    <main className="main">
-      <Counter />
-      <Info />
-    </main>
-  </div>
+  <BrowserRouter>
+    <nav>
+      <Link to="/">Home</Link>
+      <Link to="/auction/1259">Auction</Link>
+    </nav>
+
+    <Routes>
+      <Route path="/" element={<><h1>Home Page</h1><AuctionList /></>} />
+      <Route path="/auction/:auctionId" element={<AuctionDetail />} />
+    </Routes>
+  </BrowserRouter>
 );
