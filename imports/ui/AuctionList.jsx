@@ -9,16 +9,14 @@ export const AuctionList = () => {
   return isLoading() ? (
     <div aria-busy="true">Loading auctions...</div>
   ) : (
-    <div>
-      <h1>Auctions</h1>
-
-      <section className="auctions-grid">
+    <>
+        <h1>Auctions</h1>
+        <hr />
+        <section className="auctions-grid">
         {auctions.map((auction) => (
-          <article key={auction._id}>
-            <AuctionCard auction={auction} />
-          </article>
+            <AuctionCard key={auction._id} auction={auction} />
         ))}
-      </section>
-    </div>
+        </section>
+    </>
   );
 };

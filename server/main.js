@@ -20,9 +20,9 @@ Meteor.startup(async () => {
 
     await insertAuction({
       title: "Antique Vase",
-      description: "An antique vase from the Ming dynasty.", 
-      imageUrl: 
-        "https://images.unsplash.com/photo-1599179416084-91afc57e96f2?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      description: "An antique vase from the Ming dynasty.",
+      imageUrl:
+        "https://images.unsplash.com/photo-1723779232054-6f6be572c0e8?q=80&w=1160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       startingPrice: 4500,
       currentPrice: 4500,
       endTime: Date.now() + 6 * 60 * 60 * 1000, // 6h
@@ -32,7 +32,7 @@ Meteor.startup(async () => {
       title: "Rare Bible",
       description: "A rare first edition bible from the 1600s.",
       imageUrl:
-        "https://images.unsplash.com/photo-1599179416084-91afc57e96f2?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1702397889741-88dc0aabe3b6?q=80&w=1450&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       startingPrice: 5000,
       currentPrice: 5000,
       endTime: Date.now() + 2 * 60 * 60 * 1000, // 2h
