@@ -1,54 +1,58 @@
 import { Meteor } from "meteor/meteor";
-import { LinksCollection } from "/imports/api/links";
-import { Random } from "meteor/random";
+import { AuctionsCollection } from "../imports/api/AuctionsCollection";
 
-async function insertLink({ title, url }) {
-  await LinksCollection.insertAsync({ title, url, createdAt: new Date() });
+async function insertAuction({ title, description, imageUrl, startingPrice, currentPrice, endTime }) {
+  await AuctionsCollection.insertAsync({ title, description, imageUrl, startingPrice, currentPrice, endTime });
 }
 
 Meteor.startup(async () => {
-  // If the Links collection is empty, add some data.
-  if ((await LinksCollection.find().countAsync()) === 0) {
-    await insertLink({
-      title: "Do the Tutorial",
-      url: "https://docs.meteor.com/tutorials/react/",
+  // Prefill AuctionsCollection if empty
+  if ((await AuctionsCollection.find().countAsync()) === 0) {
+    await insertAuction({
+      title: "Vintage Camera",
+      description: "A vintage camera from the 1950s.",
+      imageUrl:
+        "https://images.unsplash.com/photo-1601854266103-c1dd42130633?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      startingPrice: 800,
+      currentPrice: 800,
+      endTime: Date.now() + 4 * 60 * 60 * 1000, // 4h
     });
 
-    await insertLink({
-      title: "Follow the Guide",
-      url: "https://docs.meteor.com/tutorials/application-structure/",
+    await insertAuction({
+      title: "Antique Vase",
+      description: "An antique vase from the Ming dynasty.", 
+      imageUrl: 
+        "https://images.unsplash.com/photo-1599179416084-91afc57e96f2?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      startingPrice: 4500,
+      currentPrice: 4500,
+      endTime: Date.now() + 6 * 60 * 60 * 1000, // 6h
     });
 
-    await insertLink({
-      title: "Read the Docs",
-      url: "https://docs.meteor.com",
+    await insertAuction({
+      title: "Rare Bible",
+      description: "A rare first edition bible from the 1600s.",
+      imageUrl:
+        "https://images.unsplash.com/photo-1599179416084-91afc57e96f2?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      startingPrice: 5000,
+      currentPrice: 5000,
+      endTime: Date.now() + 2 * 60 * 60 * 1000, // 2h
     });
 
-    await insertLink({
-      title: "Discussions",
-      url: "https://forums.meteor.com",
-    });
-
-    await insertLink({
-      title: "Join us on Discord",
-      url: "https://discord.gg/6mS3wHNg",
-    });
-
-    await insertLink({
-      title: "Deploying in Galaxy",
-      url: "https://www.meteor.com/hosting",
+    await insertAuction({
+      title: "Mercedes-Benz 280 CE",
+      description: "A classic Mercedes-Benz 280 CE from the 1980s.",
+      imageUrl:
+        "https://images.unsplash.com/photo-1686141231719-95d01804be4a?q=80&w=1714&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      startingPrice: 20000,
+      currentPrice: 20000,
+      endTime: Date.now() + 8 * 60 * 60 * 1000, // 8h
     });
   }
 
-  // We publish the entire Links collection to all clients.
-  // In order to be fetched in real-time to the clients
-  Meteor.publish("links", function () {
-    return LinksCollection.find();
+  Meteor.publish("auctions", function () {
+    return AuctionsCollection.find();
   });
 });
 
 Meteor.methods({
-  about() {
-    return `This is a Meteor application running React with React Router. this is a generated id: ${Random.id()}`;
-  },
 });
