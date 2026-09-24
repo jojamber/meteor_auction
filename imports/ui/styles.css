@@ -64,11 +64,16 @@ body {
   gap: var(--spacing-md);
 }
 
-.login-error {
+.form-error {
   color: var(--pico-del-color);
   font-size: 0.85rem;
   margin-top: var(--spacing-xs);
   margin-bottom: 0;
+  text-align: center;
+}
+
+#login-button {
+  width: auto;
 }
 
 /* ============ Auctions ============ */
@@ -155,6 +160,59 @@ body {
 }
 
 /* ============ Bids ============ */
+
+.auction-bid-current {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  border: 1px solid var(--pico-primary);
+  border-radius: var(--radius-sm);
+}
+
+.auction-bid-actions {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.auction-bid-actions button {
+  width: auto;
+}
+
+.auction-bid-actions form,
+.auction-bid-actions fieldset[role="group"] {
+  margin-bottom: 0;
+  display: flex;
+}
+
+.auction-bid-actions button[type="submit"] {
+  font-size: 1.25rem;
+  padding-inline: var(--spacing-md);
+}
+
+.custom-increment-input {
+  width: 6rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield !important;
+  appearance: none;
+}
+
+.auction-bid-actions button,
+.custom-increment-input {
+  padding-block: var(--spacing-sm);
+}
 
 .bid-history-list {
   list-style: none;

@@ -52,10 +52,10 @@ export const AuthModal = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </form>
-                {errorMessage && <p className="login-error">{errorMessage}</p>}
+                {errorMessage && <p className="form-error">{errorMessage}</p>}
                 <footer>
                     <button type="button" className="outline" onClick={handleRegister}>Register</button>
-                    <button type="submit" form="auth-form">Login</button>
+                    <button type="submit" form="auth-form" id="login-button">Login</button>
                 </footer>
             </article>
         </dialog>

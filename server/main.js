@@ -1,4 +1,5 @@
 import { Meteor } from "meteor/meteor";
+import { Accounts } from "meteor/accounts-base";
 import { AuctionsCollection } from "/imports/api/AuctionsCollection";
 import { BidsCollection } from "/imports/api/BidsCollection";
 import { check } from "meteor/check";
@@ -7,12 +8,26 @@ async function insertAuction({ title, description, imageUrl, startingPrice, curr
   return await AuctionsCollection.insertAsync({ title, description, imageUrl, startingPrice, currentPrice, endTime });
 }
 
-async function insertBid({ auctionId, bidderName, amount, createdAt = new Date() }) {
-  return await BidsCollection.insertAsync({ auctionId, bidderName, amount, createdAt });
+async function insertBid({ auctionId, bidderName, userId, amount, createdAt = new Date() }) {
+  return await BidsCollection.insertAsync({ auctionId, bidderName, userId, amount, createdAt });
 }
+
+async function ensureUser(username) {
+  const existing = Accounts.findUserByUsername(username);
+  if (existing) return existing._id;
+  return await Accounts.createUserAsync({ username, password: "test" });
+}
+
 
 Meteor.startup(async () => {
   // Prefill Collections if empty
+  const aliceId = await ensureUser("Alice");
+  const bobId = await ensureUser("Bob");
+  const charlieId = await ensureUser("Charlie");
+  const davidId = await ensureUser("David");
+  const eveId = await ensureUser("Eve");
+
+
   if ((await AuctionsCollection.find().countAsync()) === 0) {
     const camera_auction_id = await insertAuction({
       title: "Vintage Camera",
@@ -63,6 +78,7 @@ Meteor.startup(async () => {
     await insertBid({
       auctionId: camera_auction._id,
       bidderName: "Alice",
+      userId: aliceId,
       amount: 850,
       createdAt: new Date(Date.now() - 30 * 60 * 1000),
     });
@@ -70,6 +86,7 @@ Meteor.startup(async () => {
     await insertBid({
       auctionId: camera_auction._id,
       bidderName: "Bob",
+      userId: bobId,
       amount: 900,
       createdAt: new Date(Date.now() - 20 * 60 * 1000),
     });
@@ -77,6 +94,7 @@ Meteor.startup(async () => {
     await insertBid({
       auctionId: camera_auction._id,
       bidderName: "Charlie",
+      userId: charlieId,
       amount: 950,
       createdAt: new Date(Date.now() - 10 * 60 * 1000),
     });
@@ -84,13 +102,19 @@ Meteor.startup(async () => {
     await insertBid({
       auctionId: camera_auction._id,
       bidderName: "Alice",
+      userId: aliceId,
       amount: 1500,
       createdAt: new Date(Date.now() - 5 * 60 * 1000),
+    });
+
+    await AuctionsCollection.updateAsync(camera_auction._id, {
+      $set: { currentPrice: 1500 },
     });
 
     await insertBid({
       auctionId: vase_auction._id,
       bidderName: "David",
+      userId: davidId,
       amount: 4600,
       createdAt: new Date(Date.now() - 15 * 60 * 1000),
     });
@@ -98,8 +122,13 @@ Meteor.startup(async () => {
     await insertBid({
       auctionId: vase_auction._id,
       bidderName: "Eve",
+      userId: eveId,
       amount: 4700,
       createdAt: new Date(Date.now() - 5 * 60 * 1000),
+    });
+
+    await AuctionsCollection.updateAsync(vase_auction._id, {
+      $set: { currentPrice: 4700 },
     });
   }
 
@@ -119,4 +148,22 @@ Meteor.startup(async () => {
 });
 
 Meteor.methods({
+  "bids.insert": async function (auctionId, amount) {
+    check(auctionId, String);
+    check(amount, Number);
+
+    if (!(this.userId)) {
+      throw new Meteor.Error("not-authorized", "Not authorized. ");
+    }
+
+    const user = await Meteor.users.findOneAsync(this.userId);
+
+    const result = await AuctionsCollection.updateAsync({ _id: auctionId, currentPrice: { $lt: amount } }, { $set: { currentPrice: amount } });
+    if (result === 0) {
+      // Race condition: Another bid was placed before this one. 
+      throw new Meteor.Error("bid-too-low", "Bid amount is not the highest any more.");
+    }
+
+    return insertBid({ auctionId, bidderName: user.username, userId: this.userId, amount, createdAt: new Date() });
+  }
 });

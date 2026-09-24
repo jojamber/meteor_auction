@@ -23,7 +23,7 @@ export const AuctionDetail = () => {
     <div className="auction-detail">
       <div className="auction-detail-left">
         <AuctionInfo auction={auction} />
-        <AuctionBid auctionId={auctionId} />
+        <AuctionBid auctionId={auctionId} currentPrice={auction.currentPrice} />
       </div>
       <AuctionChat />
     </div>
