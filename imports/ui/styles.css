@@ -15,15 +15,50 @@
   --radius-sm: 0.5rem;
 }
 
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  background-color: color-mix(in srgb, var(--pico-color) 4%, transparent);
+  border-bottom: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--radius-sm);
+}
+
 body {
   font-family: "Inter", "Segoe UI", Roboto,
     sans-serif;
 }
 
+.app-logo {
+  font-family: "Molle", serif;
+  color: var(--black);
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--pico-secondary);
+  text-decoration: none;
+}
+
+.user-info {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  border: 1px solid var(--pico-secondary-border);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+}
+
 /* ============ Login ============ */
 
-.auth-modal-header {
+#auth-form {
   display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.auth-modal-header {
+  display: inline-flex;
   flex-direction: row;
   align-items: center;
   gap: var(--spacing-md);
@@ -171,4 +206,21 @@ body {
   background-color: var(--pico-secondary-background);
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: var(--radius-sm);
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background: none;
+  border: none;
+  padding: var(--spacing-xs);
+  color: var(--pico-muted-color);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.icon-button:hover {
+  color: var(--pico-primary-color);
 }

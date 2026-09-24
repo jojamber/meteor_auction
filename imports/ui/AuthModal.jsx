@@ -38,22 +38,24 @@ export const AuthModal = () => {
                     <FaKeycdn size="2rem" />
                     <h2>Login / Register</h2>
                 </header>
-                <input
-                    type="text"
-                    placeholder="Username"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+                <form id="auth-form" onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </form>
                 {errorMessage && <p className="login-error">{errorMessage}</p>}
                 <footer>
-                    <button className="outline" onClick={handleRegister}>Register</button>
-                    <button onClick={handleLogin}>Login</button>
+                    <button type="button" className="outline" onClick={handleRegister}>Register</button>
+                    <button type="submit" form="auth-form">Login</button>
                 </footer>
             </article>
         </dialog>
