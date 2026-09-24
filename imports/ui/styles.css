@@ -20,6 +20,22 @@ body {
     sans-serif;
 }
 
+/* ============ Login ============ */
+
+.auth-modal-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.login-error {
+  color: var(--pico-del-color);
+  font-size: 0.85rem;
+  margin-top: var(--spacing-xs);
+  margin-bottom: 0;
+}
+
 /* ============ Auctions ============ */
 
 .auctions-grid {
