@@ -103,6 +103,50 @@ body {
   overflow: hidden;
 }
 
+/* ============ Bids ============ */
+
+.bid-history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 6rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.bid-history-item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+  font-size: 0.85rem;
+  padding: var(--spacing-xs) 0;
+  border-bottom: 1px solid var(--pico-muted-border-color);
+}
+
+.bid-time {
+  color: var(--pico-muted-color);
+  flex: 0 0 8rem;
+}
+
+.bid-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bid-amount {
+  flex: 0 0 auto;
+  font-weight: bold;
+  text-align: right;
+}
+
+
+/* ============ Misc ============ */
+
 .green-batch {
   display: inline-flex;
   align-items: center;
