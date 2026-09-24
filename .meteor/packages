@@ -23,3 +23,5 @@ react-meteor-data       # React higher-order component for reactively tracking M
 
 rspack@1.3.0                  # Integrate Rspack into Meteor for client and server app bundling
 check
+accounts-base
+accounts-password
