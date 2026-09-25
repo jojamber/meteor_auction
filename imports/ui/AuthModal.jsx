@@ -9,7 +9,7 @@ export const AuthModal = () => {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
-    const user = useCurrentUser();
+    const { user, isLoggingIn } = useCurrentUser();
 
     const mapErrorToMessage = (err) => {
         if (err.reason === "Match failed") return "Please fill out all fields.";
@@ -29,7 +29,7 @@ export const AuthModal = () => {
     };
 
     // if the user is already logged in, don't show the modal
-    if (user) return null;
+    if (isLoggingIn || user) return null;
 
     return (
         <dialog open>

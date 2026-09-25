@@ -5,10 +5,13 @@ import { Meteor } from 'meteor/meteor';
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    const user = useTracker(() => Meteor.user());
+    const currentUser = useTracker(() => ({
+      user: Meteor.user(),
+      isLoggingIn: Meteor.loggingIn(),
+    }));
 
   return (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider value={currentUser}>
       {children}
     </UserContext.Provider>
   );

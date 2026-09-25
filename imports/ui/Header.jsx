@@ -4,7 +4,7 @@ import { IoIosLogOut } from "react-icons/io";
 import { Meteor } from "meteor/meteor";
 
 export const Header = () => {
-  const user = useCurrentUser();
+  const { user } = useCurrentUser();
 
   const handleLogout = () => {
     Meteor.logout();
