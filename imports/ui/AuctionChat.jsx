@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSubscribe, useTracker } from "meteor/react-meteor-data";
 import { ChatCollection } from "/imports/api/ChatCollection";
 import { Meteor } from "meteor/meteor";
@@ -8,6 +8,9 @@ export const AuctionChat = ({ auctionId }) => {
   const [chatInputMessage, setChatInputMessage] = useState("");
   const [chatErrorMessage, setChatErrorMessage] = useState("");
 
+  const bottomRef = useRef(null);
+
+
   const isLoading = useSubscribe("auctionChat", auctionId);
 
   const chatMessages = useTracker(() => {
@@ -16,6 +19,10 @@ export const AuctionChat = ({ auctionId }) => {
       { sort: { createdAt: 1 } },
     ).fetch();
   });
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chatMessages.length]);
 
   const handleSend = (message) => {
     Meteor.call("chat.insert", auctionId, message, (error) => {
@@ -38,7 +45,7 @@ export const AuctionChat = ({ auctionId }) => {
           <ul className="chat-messages">
             {chatMessages.map((message) => (
               <li key={message._id} className="message-item">
-                <span className="message-time">
+                <span>
                   {new Date(message.createdAt).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
@@ -50,6 +57,7 @@ export const AuctionChat = ({ auctionId }) => {
                 <span className="message-text">{message.text}</span>
               </li>
             ))}
+            <div ref={bottomRef} />
           </ul>
           <form
             className="chat-send-form"
@@ -73,7 +81,7 @@ export const AuctionChat = ({ auctionId }) => {
               </button>
             </fieldset>
             {chatErrorMessage && (
-              <p className="chat-error-message">{chatErrorMessage}</p>
+              <p className="form-error">{chatErrorMessage}</p>
             )}
           </form>
         </>

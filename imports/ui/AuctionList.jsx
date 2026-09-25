@@ -4,7 +4,9 @@ import { AuctionCard } from "./AuctionCard";
 
 export const AuctionList = () => {
   const isLoading = useSubscribe("auctions");
-  const auctions = useFind(() => AuctionsCollection.find());
+  const auctions = useFind(() =>
+    AuctionsCollection.find({}, { sort: { endTime: 1 } }),
+  );
 
   return isLoading() ? (
     <div aria-busy="true">Loading auctions...</div>

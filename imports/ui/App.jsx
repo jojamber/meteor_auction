@@ -13,10 +13,12 @@ export const App = () => (
 
         <AuthModal />
 
-        <Routes>
-          <Route path="/" element={<AuctionList />} />
-          <Route path="/auction/:auctionId" element={<AuctionDetail />} />
-        </Routes>
+        <div className="page-content">
+          <Routes>
+            <Route path="/" element={<AuctionList />} />
+            <Route path="/auction/:auctionId" element={<AuctionDetail />} />
+          </Routes>
+        </div>
       </main>
     </UserProvider>
   </BrowserRouter>
