@@ -3,7 +3,6 @@ import { CountdownBadge } from "./CountdownBadge";
 
 export const AuctionInfo = ({ auction }) => {
     const { title, description, imageUrl, startingPrice, endTime } = auction;
-    
   return (
     <article className="auction-info">
       <h2>{title}</h2>
