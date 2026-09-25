@@ -38,6 +38,8 @@ Der Zweck der Anwendung ist die Präsentation des Frameworks Meteor.js. Sie zeig
 - Repo klonen
 - `meteor npm install`
 
+**Hinweis für Windows: Falls `meteor npm install` oder `meteor run` mit einem Kompilierungsfehler bei `argon2 / accounts-password` fehlschlägt (natives C++-Modul, Windows-Build-Toolchain-Problem), empfiehlt sich die Ausführung über WSL. **
+
 ### Starten
 
 - `meteor run`
