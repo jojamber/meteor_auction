@@ -1,4 +1,4 @@
-import { CountdownBadge } from "./CountdownBadge";
+import { CountdownBadge } from "../layout/CountdownBadge";
 
 
 export const AuctionInfo = ({ auction }) => {

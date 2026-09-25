@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CountdownBadge } from './CountdownBadge';
+import { CountdownBadge } from '../layout/CountdownBadge';
 
 
 export const AuctionCard = ({ auction }) => {

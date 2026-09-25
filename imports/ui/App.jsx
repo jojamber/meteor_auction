@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { Header } from './Header';
-import { AuctionList } from './AuctionList';
-import { AuctionDetail } from './AuctionDetail';
-import { UserProvider } from './UserContext';
-import { AuthModal } from './AuthModal';
+import { Header } from './layout/Header';
+import { AuctionList } from './auction/AuctionList';
+import { AuctionDetail } from './auction/AuctionDetail';
+import { UserProvider } from './auth/UserContext';
+import { AuthModal } from './auth/AuthModal';
 
 export const App = () => (
   <BrowserRouter>

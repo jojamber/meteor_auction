@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
-import { useCurrentUser } from "./UserContext";
+import { useCurrentUser } from "../auth/UserContext";
 import { IoIosLogOut } from "react-icons/io";
 import { Meteor } from "meteor/meteor";
 
