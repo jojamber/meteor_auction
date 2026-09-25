@@ -25,7 +25,7 @@ export const AuctionDetail = () => {
         <AuctionInfo auction={auction} />
         <AuctionBid auctionId={auctionId} currentPrice={auction.currentPrice} />
       </div>
-      <AuctionChat />
+      <AuctionChat auctionId={auctionId} />
     </div>
   );
 }

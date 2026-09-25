@@ -2,6 +2,7 @@ import { Meteor } from "meteor/meteor";
 import { Accounts } from "meteor/accounts-base";
 import { AuctionsCollection } from "/imports/api/AuctionsCollection";
 import { BidsCollection } from "/imports/api/BidsCollection";
+import {ChatCollection} from "/imports/api/ChatCollection";
 import { check } from "meteor/check";
 
 async function insertAuction({ title, description, imageUrl, startingPrice, currentPrice, endTime }) {
@@ -10,6 +11,10 @@ async function insertAuction({ title, description, imageUrl, startingPrice, curr
 
 async function insertBid({ auctionId, bidderName, userId, amount, createdAt = new Date() }) {
   return await BidsCollection.insertAsync({ auctionId, bidderName, userId, amount, createdAt });
+}
+
+async function insertChat({ auctionId, senderName, userId, text, createdAt = new Date() }) {
+  return await ChatCollection.insertAsync({ auctionId, senderName, userId, text, createdAt });
 }
 
 async function ensureUser(username) {
@@ -145,6 +150,11 @@ Meteor.startup(async () => {
     check(auctionId, String);
     return BidsCollection.find({ auctionId: auctionId }, { sort: { createdAt: -1 } });
   });
+
+  Meteor.publish("auctionChat", function (auctionId) {
+    check(auctionId, String);
+    return ChatCollection.find({ auctionId: auctionId }, { sort: { createdAt: 1 } });
+  });
 });
 
 Meteor.methods({
@@ -165,5 +175,18 @@ Meteor.methods({
     }
 
     return insertBid({ auctionId, bidderName: user.username, userId: this.userId, amount, createdAt: new Date() });
-  }
+  },
+
+  "chat.insert": async function (auctionId, text) {
+    check(auctionId, String);
+    check(text, String);
+    
+    if (!(this.userId)) {
+      throw new Meteor.Error("not-authorized", "Not authorized. ");
+    }
+
+    const user = await Meteor.users.findOneAsync(this.userId);
+
+    return insertChat({ auctionId, senderName: user.username, userId: this.userId, text, createdAt: new Date() });
+  },
 });
