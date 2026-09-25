@@ -1,10 +1,33 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useRef } from "react";
 import { useCurrentUser } from "./UserContext";
 import { IoIosLogOut } from "react-icons/io";
 import { Meteor } from "meteor/meteor";
 
 export const Header = () => {
   const { user } = useCurrentUser();
+  const [confirmingReset, setConfirmingReset] = useState(false);
+  const resetTimeoutRef = useRef(null);
+
+  const navigate = useNavigate();
+
+  const handleResetClick = () => {
+    if (!confirmingReset) {
+      setConfirmingReset(true);
+      resetTimeoutRef.current = setTimeout(() => {
+        setConfirmingReset(false);
+      }, 3000);
+      return;
+    }
+
+    clearTimeout(resetTimeoutRef.current);
+    setConfirmingReset(false);
+    Meteor.call("testData.reset", (error) => {
+      if (!error) {
+        navigate("/");
+      }
+    });
+  };
 
   const handleLogout = () => {
     Meteor.logout();
@@ -16,12 +39,20 @@ export const Header = () => {
         Meteor Auction
       </Link>
       {user && (
-        <span className="user-info">
-          <button className="icon-button" onClick={handleLogout}>
-            <span>User: {user.username}</span>
-            <IoIosLogOut size="1.5rem" />
+        <>
+          <button
+            className={`reset-data-button ${confirmingReset ? "confirm-reset-button" : "outline"}`}
+            onClick={handleResetClick}
+          >
+            {confirmingReset ? "Confirm?" : "Reset Test Data"}
           </button>
-        </span>
+          <span className="user-info">
+            <button className="icon-button" onClick={handleLogout}>
+              <span>User: {user.username}</span>
+              <IoIosLogOut size="1.5rem" />
+            </button>
+          </span>
+        </>
       )}
     </header>
   );

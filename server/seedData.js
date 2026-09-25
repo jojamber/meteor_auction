@@ -3,18 +3,55 @@ import { BidsCollection } from "/imports/api/BidsCollection";
 import { ChatCollection } from "/imports/api/ChatCollection";
 import { Accounts } from "meteor/accounts-base";
 
-async function insertAuction({ title, description, imageUrl, startingPrice, currentPrice, endTime }) {
-  return await AuctionsCollection.insertAsync({ title, description, imageUrl, startingPrice, currentPrice, endTime });
+async function insertAuction({
+  title,
+  description,
+  imageUrl,
+  startingPrice,
+  currentPrice,
+  endTime,
+}) {
+  return await AuctionsCollection.insertAsync({
+    title,
+    description,
+    imageUrl,
+    startingPrice,
+    currentPrice,
+    endTime,
+  });
 }
 
-async function insertBid({ auctionId, bidderName, userId, amount, createdAt = new Date() }) {
-  return await BidsCollection.insertAsync({ auctionId, bidderName, userId, amount, createdAt });
+async function insertBid({
+  auctionId,
+  bidderName,
+  userId,
+  amount,
+  createdAt = new Date(),
+}) {
+  return await BidsCollection.insertAsync({
+    auctionId,
+    bidderName,
+    userId,
+    amount,
+    createdAt,
+  });
 }
 
-async function insertChat({ auctionId, senderName, userId, text, createdAt = new Date() }) {
-  return await ChatCollection.insertAsync({ auctionId, senderName, userId, text, createdAt });
+async function insertChat({
+  auctionId,
+  senderName,
+  userId,
+  text,
+  createdAt = new Date(),
+}) {
+  return await ChatCollection.insertAsync({
+    auctionId,
+    senderName,
+    userId,
+    text,
+    createdAt,
+  });
 }
-
 
 async function ensureUser(username) {
   const existing = Accounts.findUserByUsername(username);
@@ -229,4 +266,11 @@ export async function seedData() {
       });
     }
   }
+}
+
+export async function resetToSeedData() {
+  await BidsCollection.removeAsync({});
+  await ChatCollection.removeAsync({});
+  await AuctionsCollection.removeAsync({});
+  await seedData();
 }

@@ -3,7 +3,7 @@ import { AuctionsCollection } from "/imports/api/AuctionsCollection";
 import { BidsCollection } from "/imports/api/BidsCollection";
 import {ChatCollection} from "/imports/api/ChatCollection";
 import { check } from "meteor/check";
-import { seedData } from "./seedData";
+import { seedData, resetToSeedData } from "./seedData";
 
 async function insertBid({ auctionId, bidderName, userId, amount, createdAt = new Date() }) {
   return await BidsCollection.insertAsync({ auctionId, bidderName, userId, amount, createdAt });
@@ -19,7 +19,7 @@ Meteor.startup(async () => {
   // Seed data if collections are empty
   await seedData();
 
-  
+
   Meteor.publish("auctions", () => {
     return AuctionsCollection.find();
   });
@@ -72,4 +72,8 @@ Meteor.methods({
 
     return insertChat({ auctionId, senderName: user.username, userId: this.userId, text, createdAt: new Date() });
   },
+
+  "testData.reset": async function () {
+    await resetToSeedData();
+  }
 });

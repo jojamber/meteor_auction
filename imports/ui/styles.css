@@ -47,6 +47,21 @@ body {
   text-decoration: none;
 }
 
+.reset-data-button {
+  padding: var(--spacing-sm) var(--spacing-sm);
+  --pico-outline-width: 0
+}
+
+.reset-data-button.outline {
+  color: var(--pico-contrast);
+}
+
+.confirm-reset-button {
+  --pico-primary-background: var(--pico-del-color);
+  --pico-primary-border: var(--pico-del-color);
+  --pico-primary-hover-background: var(--pico-del-color);
+}
+
 .user-info {
   display: inline-flex;
   align-items: center;
