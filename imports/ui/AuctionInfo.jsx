@@ -1,9 +1,9 @@
 import { CountdownBadge } from "./CountdownBadge";
-import { useCurrentUser } from "./UserContext";
 
 
 export const AuctionInfo = ({ auction }) => {
     const { title, description, imageUrl, startingPrice, endTime } = auction;
+    
   return (
     <article className="auction-info">
       <h2>{title}</h2>
@@ -13,7 +13,7 @@ export const AuctionInfo = ({ auction }) => {
           <strong>Starting Price: </strong>
           {startingPrice} €
         </p>
-        <CountdownBadge timeLeft={endTime - Date.now()} />
+        <CountdownBadge endTime={endTime} />
       </div>
       <strong>Description: </strong>
       <p className="auction-info-description">{description}</p>

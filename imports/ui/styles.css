@@ -361,6 +361,10 @@ input[type=number] {
   border-radius: var(--radius-sm);
 }
 
+.green-batch span {
+  font-variant-numeric: tabular-nums;
+}
+
 .icon-button {
   align-items: center;
   gap: var(--spacing-xs);

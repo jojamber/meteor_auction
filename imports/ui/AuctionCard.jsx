@@ -10,7 +10,7 @@ export const AuctionCard = ({ auction }) => {
       <h2>{title}</h2>
       <div className="auction-card-meta">
         <span>Current Price: {currentPrice} €</span>
-        <CountdownBadge timeLeft={Date.now()} />
+        <CountdownBadge endTime={endTime} />
       </div>
       <Link to={`/auction/${_id}`} role="button">
         View Auction
