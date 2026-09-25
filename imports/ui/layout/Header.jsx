@@ -16,7 +16,7 @@ export const Header = () => {
       setConfirmingReset(true);
       resetTimeoutRef.current = setTimeout(() => {
         setConfirmingReset(false);
-      }, 3000);
+      }, 3000); // revert to normal button if not confirmed in time
       return;
     }
 

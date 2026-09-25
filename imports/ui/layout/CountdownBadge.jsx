@@ -17,7 +17,7 @@ export const CountdownBadge = ({ endTime }) => {
     return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   };
 
-  const timeLeft = Math.max(0, endTime - now);
+  const timeLeft = Math.max(0, endTime - now); // avoid negative time after auction ends
 
   return (
     <div className="green-batch">
